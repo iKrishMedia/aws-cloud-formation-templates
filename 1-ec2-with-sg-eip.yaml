@@ -44,4 +44,4 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIP: <your IP here>/32
+          CidrIP: 172.23.144.1/32
