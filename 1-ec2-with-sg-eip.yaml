@@ -1,4 +1,8 @@
----
+Parameters:
+  SecurityGroupDescription:
+    Description: Security Group Description
+    Type: String
+
 Resources:
   MyInstance:
     Type: AWS::EC2::Instance
@@ -10,34 +14,34 @@ Resources:
         - !Ref SSHSecurityGroup
         - !Ref ServerSecurityGroup
 
-# an elastic IP for our instance
-MyEIP:
-  Type: AWS::EC@::EIP
-  Properties:
-    InstanceId: !Ref MyInstance
+  # an elastic IP for our instance
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref MyInstance
 
-# our EC2 security group
-SSHSecurityGroup:
-  Type: AWS::EC2::SecurityGroup
-  Properties:
-    GroupDescription: Enable SSH via port 22
-    SecurityGroupIngress:
-    - CidrIP: 0.0.0.0/0
-      FromPort: 22
-      IpProtocol: tcp
-      ToPort: 22
+  # our EC2 security group
+  SSHSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH via port 22
+      SecurityGroupIngress:
+        - CidrIP: 0.0.0.0/0
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
 
-# our second EC2 security group
-ServerSecurityGroup:
-  Type: AWS::EC2::SecurityGroup
-  Properties:
-    GroupDescription: Allow connection from specific CIDR ranges
-    SecurityGroupIngress:
-    - IpProtocol: tcp
-      FromPort: 80
-      ToPort: 80
-      CidrIP: 0.0.0.0/0
-    - IpProtocol: tcp
-      FromPort: 22
-      ToPort: 22
-      CidrIP: <your IP here>/32
+  # our second EC2 security group
+  ServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow connection from specific CIDR ranges
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIP: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIP: <your IP here>/32
